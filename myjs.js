@@ -96,7 +96,6 @@ function handleBubbles(){
         bubblesArray[i].update();
         bubblesArray[i].draw();
         }
-    }
     for (let i = 0; i < bubblesArray.length; i++){
         if (bubblesArray[i].y<0 - bubblesArray[i].radius*2){
             bubblesArray.splice(i,1);
@@ -110,7 +109,11 @@ function handleBubbles(){
                 bubblesArray.splice(i,1);
             }
         }
+    }
 }
+
+
+
 
 //Animation loop
 function animate(){
