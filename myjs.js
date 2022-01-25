@@ -8,11 +8,13 @@ let playerHeart=3;
 let score = 0;
 let gameFrame = 0;
 let gameOver = false;
-const winningScore=50;
+const winningScore=60;
+let level= 1;
 ctx.font = " 50px Orbitron";
 
 //Mouse interactivity
 let canvasPosition = canvas.getBoundingClientRect();
+console.log(canvasPosition)
 const mouse = {
     x: canvas.width/2,
     y: canvas.height/2,
@@ -28,9 +30,9 @@ canvas.addEventListener("mouseup",function (){
 })
 //Player
 const playerLeft = new Image();
-playerLeft.src = "fishswiml.png"
+playerLeft.src = "picture/fishswiml.png"
 const playerRight= new Image();
-playerRight.src = "fishswimr.png"
+playerRight.src = "picture/fishswimr.png"
 class Player{
     constructor() {
         this.x = canvas.width;
@@ -39,7 +41,6 @@ class Player{
         this.angle = 0;
         this.frameX= 0;
         this.frameY=0;
-        this.frame = 0;
         this.spriteWidth = 498;
         this.spriteHeight = 327;
     }
@@ -88,7 +89,7 @@ class Player{
 const player = new Player()
 //Enemies
 const enemyUp = new Image();
-enemyUp.src =  "splat.png";
+enemyUp.src =  "picture/splat.png";
 const enemyArray = [];
 class Enemy{
     constructor() {
@@ -117,16 +118,17 @@ class Enemy{
     }
 }
 function handleEnemy(){
+
     if(gameFrame %100== 0){
         enemyArray.push(new Enemy());
-    }
-    for (let i = 0; i < enemyArray.length; i++) {
-        enemyArray[i].update();
-        enemyArray[i].draw();
         }
+    for (let i = 0; i < enemyArray.length; i++) {
+            enemyArray[i].update();
+            enemyArray[i].draw();
+    }
     for (let i = 0; i < enemyArray.length; i++){
         if (enemyArray[i].y<0 - enemyArray[i].radius*2){
-            enemyArray.splice(i,1);
+                enemyArray.splice(i,1);
         }
         if (enemyArray[i]){
             if (enemyArray[i].distance < enemyArray[i].radius + player.radius){
@@ -134,30 +136,43 @@ function handleEnemy(){
                 if (!enemyArray[i].counted){
                     enemyArray[i].counted = true;
                     enemyArray.splice(i,1);
+                    }
                 }
             }
         }
-    }
+
+
 }
 
 //BackGrounds
-const background = new Image();
-background.src="background2.png";
-
+const background1 = new Image();
+background1.src="picture/background1.png";
+const background2= new Image();
+background2.src="picture/background2.png";
+const background3= new Image();
+background3.src="picture/background3.png";
 function handleBackground(){
-    ctx.drawImage(background,0,0,canvas.width,canvas.height);
+    ctx.drawImage(background1,0,0,canvas.width,canvas.height);
 }
+function handleBackground2(){
+    ctx.drawImage(background2,0,0,canvas.width,canvas.height);
+}
+function handleBackground3(){
+    ctx.drawImage(background3,0,0,canvas.width,canvas.height);
+}
+
 //Fish
-const enemyImage = new Image();
-enemyImage.src="fishleft.png"
+const fishImage = new Image();
+fishImage.src="picture/fishleft.png"
 const fishArray=[];
+
+
 class Fish {
     constructor() {
         this.x = canvas.width + 200;
         this.y = Math.random()*canvas.height;
         this.radius = 30;
         this.speed = Math.random()*5 + 1;
-        this.frame = 0;
         this.frameX =0;
         this.frameY = 0;
         this.spriteWidth = 418;
@@ -170,7 +185,7 @@ class Fish {
         // ctx.beginPath();
         // ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
         // ctx.fill();
-        ctx.drawImage(enemyImage,this.frameX*this.spriteWidth,this.frameY*this.spriteHeight,this.spriteWidth+80,this.spriteHeight-80,this.x-60,this.y-45,this.spriteWidth/6,this.spriteHeight/6);
+        ctx.drawImage(fishImage,this.frameX*this.spriteWidth,this.frameY*this.spriteHeight,this.spriteWidth+80,this.spriteHeight-80,this.x-60,this.y-45,this.spriteWidth/6,this.spriteHeight/6);
 
     }
     update(){
@@ -223,17 +238,52 @@ function handleGameover(){
 }
 //Animation loop
 function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    handleBackground()
-    handleEnemy();
-    player.update();
-    player.draw();
-    handleSmallFish()
-    ctx.fillStyle ="black";
-    ctx.fillText("score: " + score,10,40)
-    ctx.fillText("heart: " + playerHeart,500,40)
-    gameFrame++;
-    handleGameover()
-    if (!gameOver)requestAnimationFrame(animate);
+    if (score<=20){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        handleBackground()
+        handleEnemy();
+        player.update();
+        player.draw();
+        handleSmallFish()
+        ctx.fillStyle ="black";
+        ctx.fillText("score: " + score,10,40)
+        ctx.fillText("level: " + level,290,40)
+        ctx.fillText("heart: " + playerHeart,550,40)
+        gameFrame++;
+        handleGameover()
+        if (!gameOver)requestAnimationFrame(animate);
+    }
+    if(score>20){
+        level=2;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        handleBackground2()
+        handleEnemy();
+        player.update();
+        player.draw();
+        handleSmallFish()
+        ctx.fillStyle ="black";
+        ctx.fillText("score: " + score,10,40)
+        ctx.fillText("level: " + level,290,40)
+        ctx.fillText("heart: " + playerHeart,550,40)
+        gameFrame++;
+        handleGameover()
+        if (!gameOver)requestAnimationFrame(animate);
+    }
+    if (score>40){
+        level=3;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        handleBackground3()
+        handleEnemy();
+        player.update();
+        player.draw();
+        handleSmallFish()
+        ctx.fillStyle ="black";
+        ctx.fillText("score: " + score,10,40)
+        ctx.fillText("level: " + level,290,40)
+        ctx.fillText("heart: " + playerHeart,550,40)
+        gameFrame++;
+        handleGameover()
+        if (!gameOver)requestAnimationFrame(animate);
+    }
 }
 animate()
