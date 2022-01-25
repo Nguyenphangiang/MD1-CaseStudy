@@ -1,5 +1,5 @@
-
-let playerHeart=5;
+let maxHeart=15
+let playerHeart=8;
 let score = 0;
 let gameFrame = 0;
 let gameOver = false;
@@ -8,7 +8,7 @@ let level= 1;
 ctx.font = " 50px Orbitron";
 
 function handleGameover(){
-    if (playerHeart==0){
+    if (playerHeart<=0){
         gameOver=true;
         ctx.fillStyle = "black";
         ctx.fillText("YOU LOSE",130,250);
@@ -19,7 +19,6 @@ function handleGameover(){
         ctx.fillText("YOU WIN",130,250)
     }
 }
-
 function animate(){
     if (score<=20){
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -27,7 +26,7 @@ function animate(){
         handleEnemy();
         player.update();
         player.draw();
-        handleSmallFish()
+        handleSmallFish1()
         ctx.fillStyle ="black";
         ctx.fillText("score: " + score,10,40)
         ctx.fillText("level: " + level,290,40)
@@ -40,11 +39,11 @@ function animate(){
         level=2;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         handleBackground2()
-        handleEnemy2_1()
         handleEnemy2();
+        handleSmallFish2();
+        handleFood();
         player.update();
         player.draw();
-        handleSmallFish()
         ctx.fillStyle ="black";
         ctx.fillText("score: " + score,10,40)
         ctx.fillText("level: " + level,290,40)
@@ -57,10 +56,11 @@ function animate(){
         level=3;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         handleBackground3()
-        handleEnemy();
+        handleEnemy3();
+        handleSmallFish3();
+        handleFood2();
         player.update();
         player.draw();
-        handleSmallFish()
         ctx.fillStyle ="black";
         ctx.fillText("score: " + score,10,40)
         ctx.fillText("level: " + level,290,40)

@@ -1,18 +1,16 @@
 const enemyUp = new Image();
-enemyUp.src =  "picture/splat.png";
+enemyUp.src =  "picture/enemy1.png";
 const enemyUp2= new Image();
-enemyUp2.src = "picture/enemy1.png";
+enemyUp2.src = "picture/enemy2.png";
 const enemyUp3= new Image();
-enemyUp3.src = "picture/enemy2.png";
+enemyUp3.src = "picture/enemy3.png";
 const enemyArray = [];
-let poop = new Enemy()
-
 class Enemy{
     constructor() {
-        this.x = Math.random()* canvas.width +100;
-        this.y = canvas.height+100;
+        this.x = Math.random()*canvas.width+100
+        this.y = canvas.height+100
         this.radius = 5;
-        this.speed = Math.random()*2 ;
+        this.speed = Math.random()*2
         this.distance = 0;
         this.counted = false;
     }
@@ -32,7 +30,10 @@ class Enemy{
         ctx.drawImage(enemyUp,this.x,this.y,this.radius*10,this.radius*10);
     }
     draw1(){
-        ctx.drawImage(enemyUp2,this.x,this.y,this.radius*20,this.radius*20);
+        ctx.drawImage(enemyUp2,this.x,this.y,this.radius*10,this.radius*10);
+    }
+    draw2(){
+        ctx.drawImage(enemyUp3,this.x,this.y,this.radius*20,this.radius*20);
     }
 }
 function handleEnemy(){
@@ -59,7 +60,7 @@ function handleEnemy(){
     }
 }
 function handleEnemy2(){
-    if(gameFrame %123== 0){
+    if(gameFrame %50== 0){
         enemyArray.push(new Enemy());
     }
     for (let i = 0; i < enemyArray.length; i++) {
@@ -81,13 +82,13 @@ function handleEnemy2(){
         }
     }
 }
-function handleEnemy2_1(){
-    if(gameFrame %123== 0){
+function handleEnemy3(){
+    if(gameFrame %60== 0){
         enemyArray.push(new Enemy());
     }
     for (let i = 0; i < enemyArray.length; i++) {
         enemyArray[i].update();
-        enemyArray[i].draw();
+        enemyArray[i].draw2();
     }
     for (let i = 0; i < enemyArray.length; i++){
         if (enemyArray[i].y<0 - enemyArray[i].radius*2){
@@ -95,7 +96,7 @@ function handleEnemy2_1(){
         }
         if (enemyArray[i]){
             if (enemyArray[i].distance < enemyArray[i].radius + player.radius){
-                playerHeart-=2;
+                playerHeart-=3;
                 if (!enemyArray[i].counted){
                     enemyArray[i].counted = true;
                     enemyArray.splice(i,1);
