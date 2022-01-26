@@ -57,7 +57,7 @@ class Food {
         ctx.drawImage(foodImage,this.x,this.y,this.radius*5,this.radius*5);
     }
     draw1(){
-        ctx.drawImage(foodImage1,this.x,this.y,this.radius*4,this.radius*4)
+        ctx.drawImage(foodImage1,this.x,this.y,this.radius*6,this.radius*6)
     }
     update(){
         this.y += this.speed;
@@ -80,8 +80,9 @@ function handleSmallFish1(){
         }
         if (fishArray[i]){
             if (fishArray[i].distance < fishArray[i].radius + player.radius){
-                score++;
                 if (!fishArray[i].counted){
+                    score++;
+                    eatSound.play();
                     fishArray[i].counted = true;
                     fishArray.splice(i,1);
                 }
@@ -158,7 +159,7 @@ function handleFood(){
     }
 }
 function handleFood2(){
-    if (gameFrame%350==0){
+    if (gameFrame%500==0){
         foodArray.push(new Food())
         console.log(foodArray.length)
     }

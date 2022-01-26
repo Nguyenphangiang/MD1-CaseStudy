@@ -7,10 +7,10 @@ enemyUp3.src = "picture/enemy3.png";
 const enemyArray = [];
 class Enemy{
     constructor() {
-        this.x = Math.random()*canvas.width+100
+        this.x = Math.random()*canvas.width
         this.y = canvas.height+100
         this.radius = 5;
-        this.speed = Math.random()*2
+        this.speed = Math.random()*3
         this.distance = 0;
         this.counted = false;
     }
@@ -50,10 +50,11 @@ function handleEnemy(){
         }
         if (enemyArray[i]){
             if (enemyArray[i].distance < enemyArray[i].radius + player.radius){
-                playerHeart--;
                 if (!enemyArray[i].counted){
                     enemyArray[i].counted = true;
                     enemyArray.splice(i,1);
+                    playerHeart--;
+                    hurtSound.play();
                 }
             }
         }
