@@ -8,6 +8,7 @@ const foodImage = new Image();
 foodImage.src="picture/food2.png"
 const foodImage1 = new Image();
 foodImage1.src="picture/food3.png"
+
 const fishArray=[];
 const foodArray=[];
 class Fish {
@@ -46,7 +47,7 @@ class Fish {
 class Food {
     constructor() {
         this.x = Math.random()*canvas.width+100;
-        this.y = canvas.height - 600;
+        this.y = 0;
         this.radius = 5;
         this.speed = Math.random()*2+1;
         this.distance = 0;
@@ -137,17 +138,17 @@ function handleSmallFish3(){
 function handleFood(){
     if (gameFrame%250==0){
         foodArray.push(new Food())
-        console.log(foodArray.length)
     }
     for (let i = 0; i < foodArray.length; i++) {
         foodArray[i].update();
         foodArray[i].draw();
     }
     for (let i = 0; i < foodArray.length; i++) {
-        if (foodArray[i].y>600){
+        if (foodArray.length>10){
             foodArray.splice(i,1);
         }
         if (foodArray[i].distance < foodArray[i].radius+player.radius){
+            console.log(this.distance)
             playerHeart++;
             if (!foodArray[i].counted){
                 foodArray[i].counted=true;
@@ -163,10 +164,10 @@ function handleFood2(){
     }
     for (let i = 0; i < foodArray.length; i++) {
         foodArray[i].update();
-        foodArray[i].draw();
+        foodArray[i].draw1();
     }
     for (let i = 0; i < foodArray.length; i++) {
-        if (foodArray[i].y>600){
+        if (foodArray[length]>5){
             foodArray.splice(i,1);
         }
         if (foodArray[i].distance < foodArray[i].radius+player.radius){

@@ -20,7 +20,6 @@ function handleGameover(){
     }
 }
 function animate(){
-    if (score<=20){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         handleBackground()
         handleEnemy();
@@ -32,16 +31,16 @@ function animate(){
         ctx.fillText("level: " + level,290,40)
         ctx.fillText("heart: " + playerHeart,550,40)
         gameFrame++;
-        handleGameover()
-        if (!gameOver)requestAnimationFrame(animate);
-    }
+        // handleGameover()
+        // if (!gameOver)requestAnimationFrame(animate);
+
     if(score>20){
         level=2;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         handleBackground2()
         handleEnemy2();
-        handleSmallFish2();
         handleFood();
+        handleSmallFish2();
         player.update();
         player.draw();
         ctx.fillStyle ="black";
@@ -49,8 +48,8 @@ function animate(){
         ctx.fillText("level: " + level,290,40)
         ctx.fillText("heart: " + playerHeart,550,40)
         gameFrame++;
-        handleGameover()
-        if (!gameOver)requestAnimationFrame(animate);
+        // handleGameover()
+        // if (!gameOver)requestAnimationFrame(animate);
     }
     if (score>40){
         level=3;
@@ -66,8 +65,8 @@ function animate(){
         ctx.fillText("level: " + level,290,40)
         ctx.fillText("heart: " + playerHeart,550,40)
         gameFrame++;
-        handleGameover()
-        if (!gameOver)requestAnimationFrame(animate);
-    }
+
+    }handleGameover()
+    if (!gameOver)requestAnimationFrame(animate);
 }
 animate()
